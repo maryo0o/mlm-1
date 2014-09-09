@@ -1,0 +1,67 @@
+.container {
+	margin-top: 20px;
+}
+
+#side-navbar {
+	padding: 15px;
+}
+
+.sub-page-navbar {
+	margin-bottom: 15px;
+}
+
+.sub-page-navbar a span {
+	font-size: 9pt;
+}
+
+.btn-icon {
+	display: table;
+	margin: auto;
+}
+
+.icon-stacked {
+	color: rgb(187, 179, 179);
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+form {
+	margin: 30px 0px;
+	padding: 15px;
+	background-color: #F5F4F4;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 0 0;
+	border-style: solid;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+form .form-title {
+	float: left;
+	margin-top: -30px;
+	padding: 7px 15px;
+	padding-top: 3px;
+	border-radius: 4px;
+	background: #E9E3E3;
+	font-size: 12pt;
+	margin-bottom: 0;
+}
+
+.form-horizontal .control-label {
+	font-size: 8pt;
+}
+
+.form-group.has-error p {
+	color: #eb6864;
+	font-size: 8pt;
+	margin-bottom: 5px;
+}
+
+.form-group.has-error p:first-child {
+	margin-top: 5px;
+}
+
+.form-group.has-error p:last-child {
+	margin-bottom: 0px;
+}

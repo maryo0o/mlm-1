@@ -35,7 +35,21 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User');
+	public $allowed_actions = array();
+
+	public function beforeFilter() {
+		$this->allowed_actions[] = '*';
+		if($this->Session->read('User.role') == '2')
+			$this->allowed_actions[] = '*';			
+		else 
+			$this->allowed_actions[] = 'login';
+		
+		$this->set('allowed_actions', $this->allowed_actions);
+		if (!in_array($this->request->params['action'], $this->allowed_actions) && !in_array("*", $this->allowed_actions))
+			$this->redirect('/admin/login');
+		$this->set('current_page', $this->request->params['action']);
+	}
 
 /**
  * Displays a view
@@ -61,9 +75,11 @@ class PagesController extends AppController {
 			$subpage = $path[1];
 		}
 		if (!empty($path[$count - 1])) {
-			$title_for_layout = Inflector::humanize($path[$count - 1]);
+			$title = Inflector::humanize($path[$count - 1]);
 		}
-		$this->set(compact('page', 'subpage', 'title_for_layout'));
+		$this->set(compact('page', 'subpage', 'title'));
+		if($page == 'login')
+			$this->layout = 'login';
 
 		try {
 			$this->render(implode('/', $path));
@@ -73,5 +89,28 @@ class PagesController extends AppController {
 			}
 			throw new NotFoundException();
 		}
+	}
+
+	public function login() {
+		if(!empty($this->request->data)) {
+			$this->User->recursive = -1;
+			$user = $this->User->findByUsername($this->request->data['username']);
+			if(!empty($user) && ($user['User']['password'] == md5($this->request->data['password']))) {
+				$this->Session->write('User', $user['User']);
+				if($this->Session->read('User.role') == '1')
+					$this->Session->write('User.role', '2');
+				$this->redirect('/');
+			}
+			else {
+				$this->Session->setFlash('Either your username or password is incorrect.', 'error');
+				$this->redirect('/login');
+			}
+		}
+		$this->autoRender = false;
+	}
+
+	public function logout() {
+		$this->Session->destroy();
+		$this->redirect('/');
 	}
 }
