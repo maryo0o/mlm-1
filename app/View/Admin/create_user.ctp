@@ -1,69 +1,56 @@
-<?php echo $this->element('admin_users_navbar'); ?>
+<?php
+	echo $this->element('admin_users_navbar');
+	$new_countries = array('' => 'Country');
+	foreach ($countries as $country)
+		$new_countries[$country['Country']['id']] = $country['Country']['name'];
+?>
+
 <h4>Create a New User</h4>
-<form data-form>
+<form data-form action="<?php echo $this->webroot."admin/create_user"; ?>" method="POST">
 	<div class="row">
 		<div class="col-md-6 form-horizontal" role="form">
 			<h4>Account Information</h4>
-			<div class="form-group">
-				<label for="username" class="col-md-4 control-label">Username</label>
-				<div class="col-md-8">
-					<input type="text" class="form-control" id="username" placeholder="Username" data-validate="username|required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-md-4 control-label">Password</label>
-				<div class="col-md-8">
-					<input type="password" class="form-control" id="password" placeholder="Password" data-validate="password|required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="confirm-password" class="col-md-4 control-label">Confirm Password</label>
-				<div class="col-md-8">
-					<input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" data-validate="confirm-password|required" data-password="#password">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="email" class="col-md-4 control-label">Email</label>
-				<div class="col-md-8">
-					<input type="email" class="form-control" id="email" placeholder="Email" data-validate="email|required">
-				</div>
-			</div>
+			<?php
+				$inputs = array(
+					array('field' => 'username', 'label-class' => 'col-md-4 control-label', 'name' => 'Username', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
+					array('field' => 'password', 'label-class' => 'col-md-4 control-label', 'name' => 'Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
+					array('field' => 'confirm-password', 'label-class' => 'col-md-4 control-label', 'name' => 'Confirm Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'confirm_password|required', 'data-password' => '#password')),
+					array('field' => 'email', 'label-class' => 'col-md-4 control-label', 'name' => 'Email', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'email|required'))
+				);
+				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array())));
+			?>
 		</div>
 		<div class="col-md-6 form-horizontal" role="form">
 			<h4>Personal Information</h4>
-			<div class="form-group">
-				<label for="first-name" class="col-md-4 control-label">First Name</label>
-				<div class="col-md-8">
-					<input type="text" class="form-control" id="first-name" placeholder="First Name" data-validate="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="last-name" class="col-md-4 control-label">Last Name</label>
-				<div class="col-md-8">
-					<input type="text" class="form-control" id="last-name" placeholder="Last Name" data-validate="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="address" class="col-md-4 control-label">Address</label>
-				<div class="col-md-8">
-					<input type="text" class="form-control" id="address" placeholder="Address" data-validate="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="country" class="col-md-4 control-label">Country</label>
-				<div class="col-md-8">
-					<select id="country" class="form-control">
-						<option>Country</option>
-						<?php
-							$countries = array();
-							foreach ($countries as $country) {
-								echo "<option value='".$country['Country']['id']."'>".$country['Country']['name']."</option>";
-							}
-						?>
-					</select>
-				</div>
-			</div>
+			<?php
+				$inputs = array(
+					array('field' => 'first-name', 'label-class' => 'col-md-4 control-label', 'name' => 'First Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					array('field' => 'last-name', 'label-class' => 'col-md-4 control-label', 'name' => 'Last Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					array('field' => 'address', 'label-class' => 'col-md-4 control-label', 'name' => 'Address', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					array('field' => 'country', 'label-class' => 'col-md-4 control-label', 'name' => 'Country', 'div-class' => 'col-md-8', 'input-type' => 'select', 'attributes' => array('data-validate' => 'required'), 'options' => $new_countries)
+				);
+				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array())));
+			?>
 			<button class="btn btn-primary pull-right">Create User</button>
 		</div>
 	</div>
 </form>
+
+<script type="text/javascript">
+	validate.add_rule(
+		'confirm_password', function(e) {
+			return e.val() == $(e.data('password')).val() | e.val().length == 0;
+		}, "'Confirm password' and 'Password' do not match."
+	);
+
+	validate.add_rule(
+		'limit_length', function(e) {
+			return (e.val().length > 6 && e.val().length < 16) | (e.val().length == 0);
+		}, "This field must be between 6 and 18 characters."
+	);
+
+	$(function () {
+		var form = $('[data-form]');
+		form.validate();
+	});
+</script>

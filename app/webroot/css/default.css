@@ -58,7 +58,7 @@ form .form-title {
 	margin-bottom: 5px;
 }
 
-.form-group.has-error p:first-child {
+.form-group.has-error p:first-of-type {
 	margin-top: 5px;
 }
 

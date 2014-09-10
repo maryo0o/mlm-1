@@ -2,8 +2,8 @@
 	App::uses('AppController', 'Controller');
 
 	class AdminController extends AppController {
-		var $uses = array('User');
-		// var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User');
+		// var $uses = array('User');
+		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User');
 		public $allowed_actions = array();
 
 		public function beforeFilter() {
@@ -56,6 +56,15 @@
 		}
 
 		public function create_user() {
+			$allowed = array('username', 'password', 'confirm-password', 'email', 'first-name', 'last-name', 'address', 'country');
+			if($this->request->is('post')) {
+				$params = $this->uniform_params($this->request->data, $allowed);
+				$this->set(compact('params'));
+			}
+
+			$this->Country->recursive = -1;
+			$countries = $this->Country->find('all');
+			$this->set(compact('countries'));
 			$this->set('title', 'Admin | Create User');
 			$this->set('main_page', 'users');
 		}
