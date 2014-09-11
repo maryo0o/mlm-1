@@ -12,26 +12,26 @@
 			<h4>Account Information</h4>
 			<?php
 				$inputs = array(
-					array('field' => 'username', 'label-class' => 'col-md-4 control-label', 'name' => 'Username', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
-					array('field' => 'password', 'label-class' => 'col-md-4 control-label', 'name' => 'Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
-					array('field' => 'confirm-password', 'label-class' => 'col-md-4 control-label', 'name' => 'Confirm Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'confirm_password|required', 'data-password' => '#password')),
-					array('field' => 'email', 'label-class' => 'col-md-4 control-label', 'name' => 'Email', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'email|required'))
+					'username' => array('label-class' => 'col-md-4 control-label', 'name' => 'Username', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
+					'password' => array('label-class' => 'col-md-4 control-label', 'name' => 'Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'alphanumeric_underscore|required|limit_length')),
+					'confirm-password' => array('label-class' => 'col-md-4 control-label', 'name' => 'Confirm Password', 'div-class' => 'col-md-8', 'input-type' => 'password', 'attributes' => array('data-validate' => 'confirm_password|required', 'data-password' => '#password')),
+					'email' => array('label-class' => 'col-md-4 control-label', 'name' => 'Email', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'email|required'))
 				);
-				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array())));
+				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array()), 'errors' => (isset($errors) ? $errors : array())));
 			?>
 		</div>
 		<div class="col-md-6 form-horizontal" role="form">
 			<h4>Personal Information</h4>
 			<?php
 				$inputs = array(
-					array('field' => 'first-name', 'label-class' => 'col-md-4 control-label', 'name' => 'First Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
-					array('field' => 'last-name', 'label-class' => 'col-md-4 control-label', 'name' => 'Last Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
-					array('field' => 'address', 'label-class' => 'col-md-4 control-label', 'name' => 'Address', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
-					array('field' => 'country', 'label-class' => 'col-md-4 control-label', 'name' => 'Country', 'div-class' => 'col-md-8', 'input-type' => 'select', 'attributes' => array('data-validate' => 'required'), 'options' => $new_countries)
+					'first_name' => array('label-class' => 'col-md-4 control-label', 'name' => 'First Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					'last_name' => array('label-class' => 'col-md-4 control-label', 'name' => 'Last Name', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					'address' => array('label-class' => 'col-md-4 control-label', 'name' => 'Address', 'div-class' => 'col-md-8', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+					'country' => array('label-class' => 'col-md-4 control-label', 'name' => 'Country', 'div-class' => 'col-md-8', 'input-type' => 'select', 'attributes' => array('data-validate' => 'required'), 'options' => $new_countries)
 				);
-				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array())));
+				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array()), 'errors' => (isset($errors) ? $errors : array())));
 			?>
-			<button class="btn btn-primary pull-right">Create User</button>
+			<button class="btn btn-primary input-sm pull-right">Create User</button>
 		</div>
 	</div>
 </form>

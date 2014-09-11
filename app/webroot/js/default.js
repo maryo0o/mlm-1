@@ -134,25 +134,7 @@ $.fn.validate = function() {
 };
 
 $(function() {
-	$(".alert").fadeTo(2000, 500).slideUp(1200, function(){
+	$(".alert").fadeTo(2000, 500).slideUp(2200, function(){
 		$(".alert").alert('close');
-	});
-
-	jQuery.extend({
-		request_action: function(vars) {
-			var result = null;
-			if(!isset(vars['async']))
-				vars['async'] = true;
-			$.ajax({
-				url: vars['url'],
-				type: 'POST',
-				async: vars['async'],
-				data: vars['data'],
-				success: function(data) {
-					result = data;
-				}
-			});
-			return result;
-		}
 	});
 });

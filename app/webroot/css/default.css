@@ -14,6 +14,10 @@
 	font-size: 9pt;
 }
 
+.btn {
+	padding: 4px 12px;
+}
+
 .btn-icon {
 	display: table;
 	margin: auto;
@@ -27,7 +31,7 @@
 
 form {
 	margin: 30px 0px;
-	padding: 15px;
+	padding: 10px 15px;
 	background-color: #F5F4F4;
 	border-color: #ddd;
 	border-width: 1px;
@@ -64,4 +68,8 @@ form .form-title {
 
 .form-group.has-error p:last-child {
 	margin-bottom: 0px;
+}
+
+form.form-inline h4 {
+	margin: 2px 15px 0 0;
 }
