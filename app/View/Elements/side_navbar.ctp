@@ -14,8 +14,8 @@
 	foreach ($pages as $page)
 		echo "<li".($current_page == $page['action'] ? " class='active'" : "").">".
 			$this->Html->link('<i class="fa fa-'.$page['icon'].'"></i> '.$page['page'], array('controller' => 'admin', 'action' => $page['action']), array('escape' => false)).
-			"</li>";
-	if($this->Session->read('User.role') == '1')
+			"</li>".PHP_EOL;
+	if($auth)
 		echo "<li>".$this->Html->link('<i class="fa fa-power-off"></i> Logout', array('controller' => 'admin', 'action' => 'logout'), array('escape' => false))."</li>";
 ?>
 </ul>

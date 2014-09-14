@@ -6,16 +6,17 @@
 	padding: 15px;
 }
 
+#side-navbar ul {
+	display: table;
+	width: 100%;
+}
+
 .sub-page-navbar {
 	margin-bottom: 15px;
 }
 
 .sub-page-navbar a span {
 	font-size: 9pt;
-}
-
-.btn {
-	padding: 4px 12px;
 }
 
 .btn-icon {
@@ -30,7 +31,7 @@
 }
 
 form {
-	margin: 30px 0px;
+	margin: 10px 0px;
 	padding: 10px 15px;
 	background-color: #F5F4F4;
 	border-color: #ddd;
@@ -39,17 +40,6 @@ form {
 	border-style: solid;
 	-webkit-box-shadow: none;
 	box-shadow: none;
-}
-
-form .form-title {
-	float: left;
-	margin-top: -30px;
-	padding: 7px 15px;
-	padding-top: 3px;
-	border-radius: 4px;
-	background: #E9E3E3;
-	font-size: 12pt;
-	margin-bottom: 0;
 }
 
 .form-horizontal .control-label {
@@ -72,4 +62,23 @@ form .form-title {
 
 form.form-inline h4 {
 	margin: 2px 15px 0 0;
+}
+
+.ajax-pagination {
+	margin: 0 0 10px 0;
+}
+
+.ajax-loader {
+	background: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+	top: 0;
+	text-align: center;
+	min-height: 100%;
+}
+
+.ajax-loader .progress{
+	width: 50%;
+	margin: 50px auto;
 }

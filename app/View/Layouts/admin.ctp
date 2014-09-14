@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row-fluid">
+		<div class="row">
 			<div id="side-navbar" class="col-md-2 navbar navbar-default">
 				<div class="navbar-header">
 					<a href="<?php echo $this->webroot; ?>" class="navbar-brand">Bootstrap CDN</a>

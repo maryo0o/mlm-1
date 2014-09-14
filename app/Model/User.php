@@ -1,5 +1,4 @@
 <?php
-
 	App::uses('AppModel', 'Model');
 
 	class User extends AppModel {
@@ -8,7 +7,7 @@
 				'className' => 'Country',
 				'foreignKey' => 'country_id'
 			),
-			'User' => array(
+			'Sponsor' => array(
 				'className' => 'User',
 				'foreignKey' => 'sponsor_id'
 			),
@@ -38,6 +37,9 @@
 				'foreignKey' => 'user_id'
 			)
 		);
-	}
 
+		var $virtualFields = array(
+			'name' => 'CONCAT(User.first_name, " ", User.last_name)'
+		);
+	}
 ?>

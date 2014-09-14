@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" action="<?php echo $this->webroot; ?>pages/login" method="POST">
+<form class="form-horizontal" role="form" action="<?php echo $this->webroot; ?>login" method="POST">
 	<div class="form-group">
 		<label for="input-username" class="col-sm-2 col-sm-offset-2 control-label">Username</label>
 		<div class="col-sm-6">

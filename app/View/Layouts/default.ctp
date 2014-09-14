@@ -23,13 +23,13 @@
 				<a href="<?php echo $this->webroot; ?>" class="navbar-brand">Bootstrap CDN</a>
 			</div>
 		</div>
-		<div class="row-fluid">
+		<div class="row">
 			<div class="col-md-12">
 			<?php echo $this->element('top_navbar'); ?>
 			</div>
 			<div id="content" class="col-md-12" style="margin-top: 20px;">
 				<?php echo $this->Session->flash(); ?>
-				<?php echo $this->fetch('content'); ?>				
+				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
 		<div id="footer">

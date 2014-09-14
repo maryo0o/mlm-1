@@ -133,8 +133,10 @@ $.fn.validate = function() {
 	});
 };
 
+var ajax_loader = '<div class="ajax-loader"><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
+
 $(function() {
-	$(".alert").fadeTo(2000, 500).slideUp(2200, function(){
+	$(".alert").fadeTo(2000, 500).slideUp(2000, function(){
 		$(".alert").alert('close');
 	});
 });

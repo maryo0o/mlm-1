@@ -9,7 +9,7 @@
 		echo $this->HTML->css('default');
 		// echo $this->HTML->css('bootstrap-theme.min');
 		echo $this->HTML->script('jquery-2.1.1.min');
-		echo $this->HTML->script('bootstrap.min');		
+		echo $this->HTML->script('bootstrap.min');
 		echo $this->HTML->script('default');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -23,7 +23,7 @@
 				<a href="<?php echo $this->webroot; ?>" class="navbar-brand">Bootstrap CDN</a>
 			</div>
 		</div>
-		<div class="row-fluid">
+		<div class="row">
 			<div id="content" class="col-md-8 col-md-offset-2">
 				<?php echo $this->Session->flash(); ?>
 				<?php echo $this->fetch('content'); ?>

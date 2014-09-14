@@ -1,5 +1,4 @@
 <?php
-
 	App::uses('AppModel', 'Model');
 
 	class Epin extends AppModel {
@@ -10,5 +9,4 @@
 			)
 		);
 	}
-
 ?>

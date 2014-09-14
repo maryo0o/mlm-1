@@ -25,7 +25,8 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-	Router::connect('/logout', array('controller' => 'pages', 'action' => 'logout'));
+	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 	// Router::connect('/admin/*', array('controller' => 'admin'));
 	foreach(scandir('../View/Pages') as $path){
 		if(pathinfo($path, PATHINFO_EXTENSION) == "ctp"){
@@ -33,7 +34,8 @@
 			Router::connect('/'.$name, array('controller' => 'pages', 'action' => 'display', $name));
 		}
 	}
-
+	Router::connect('/admin/users', array('controller' => 'admin', 'action' => 'create_user'));
+	Router::connect('/admin/epins', array('controller' => 'admin', 'action' => 'create_epins'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

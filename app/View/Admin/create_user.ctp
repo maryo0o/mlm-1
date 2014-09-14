@@ -6,7 +6,7 @@
 ?>
 
 <h4>Create a New User</h4>
-<form data-form action="<?php echo $this->webroot."admin/create_user"; ?>" method="POST">
+<form id="create-user" action="<?php echo $this->webroot."admin/create_user"; ?>" method="POST">
 	<div class="row">
 		<div class="col-md-6 form-horizontal" role="form">
 			<h4>Account Information</h4>
@@ -31,7 +31,7 @@
 				);
 				echo $this->element('horizontal_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array()), 'errors' => (isset($errors) ? $errors : array())));
 			?>
-			<button class="btn btn-primary input-sm pull-right">Create User</button>
+			<button class="btn btn-primary btn-sm pull-right">Create User</button>
 		</div>
 	</div>
 </form>
@@ -50,7 +50,7 @@
 	);
 
 	$(function () {
-		var form = $('[data-form]');
+		var form = $('#create-user');
 		form.validate();
 	});
 </script>

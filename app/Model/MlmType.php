@@ -1,5 +1,4 @@
 <?php
-
 	App::uses('AppModel', 'Model');
 
 	class MlmType extends AppModel {
@@ -16,5 +15,4 @@
 			)
 		);
 	}
-
 ?>

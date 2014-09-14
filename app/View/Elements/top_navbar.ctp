@@ -14,7 +14,7 @@
 <ul class="nav nav-pills nav-justified" role="tablist">
 <?php
 	foreach ($pages as $page)
-		if(($this->Session->read('User.role') == '2' && $page['auth']) || ($page['auth'] == false && $page['action'] != 'login') || ($this->Session->read('User.role') != '2' && $page['action'] == 'login'))
+		if(($auth && $page['auth']) || (!$page['auth'] && $page['action'] != 'login') || (!$auth && $page['action'] == 'login'))
 			echo "<li".($current_page == $page['action'] ? " class='active'" : "").">".
 				$this->Html->link('<i class="fa fa-'.$page['auth'].'"></i> '.$page['page'], '/'.$page['action'], array('escape' => false)).
 				"</li>";
