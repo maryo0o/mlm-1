@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2014 at 04:40 AM
+-- Generation Time: Sep 17, 2014 at 04:22 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -33,11 +33,19 @@ CREATE TABLE IF NOT EXISTS `epins` (
   `price` decimal(10,0) NOT NULL,
   `purpose` varchar(50) NOT NULL,
   `generation_date` date NOT NULL,
+  `used_date` date NOT NULL,
   `status` varchar(20) NOT NULL,
   `user_id` int(20) NOT NULL,
+  `owner_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `purpose` (`purpose`,`generation_date`,`status`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `pin` (`pin`),
+  KEY `owner_id` (`owner_id`),
+  KEY `used_date` (`used_date`),
+  KEY `purpose` (`purpose`),
+  KEY `generation_date` (`generation_date`),
+  KEY `status` (`status`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

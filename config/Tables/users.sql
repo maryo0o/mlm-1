@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2014 at 04:40 AM
+-- Generation Time: Sep 17, 2014 at 04:20 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -39,22 +39,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `registration_date` date NOT NULL,
   `membership_mlm_type` int(5) NOT NULL,
   `product_mlm_type` int(5) NOT NULL,
-  `role` int(2) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  `suspended` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`,`email`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
   KEY `sponsor_id` (`sponsor_id`),
   KEY `country_id` (`country_id`),
   KEY `registration_date` (`registration_date`),
   KEY `membership_mlm_type` (`membership_mlm_type`),
-  KEY `product_mlm_type` (`product_mlm_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `sponsor_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address`, `country_id`, `registration_date`, `membership_mlm_type`, `product_mlm_type`, `role`) VALUES
-(1, 0, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin@test.com', 'Michael', 'Palacio', 'Admin Address', 169, '2014-09-08', 1, 1, 1);
+  KEY `product_mlm_type` (`product_mlm_type`),
+  KEY `suspended` (`suspended`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

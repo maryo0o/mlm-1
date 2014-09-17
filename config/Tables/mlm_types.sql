@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2014 at 04:40 AM
+-- Generation Time: Sep 17, 2014 at 04:20 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `mlm_types` (
   `purpose` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `purpose` (`purpose`)
+  KEY `purpose` (`purpose`),
+  KEY `active` (`active`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
