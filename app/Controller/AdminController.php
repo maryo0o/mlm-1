@@ -60,7 +60,7 @@
 		}
 
 		public function users() {
-			$this->set('title', 'Admin | Manage Users');
+			$this->setAction('active_users');
 		}
 
 		public function create_user() {
@@ -102,13 +102,6 @@
 		}
 
 		public function active_users() {
-			if($this->request->is('post')) {
-				if(isset($this->request->data['is_ajax']) && $this->request->data['is_ajax']) {
-					$this->set('current_page', null);
-					$this->layout = 'ajax';
-				}
-			}
-
 			$this->set('title', 'Admin | Active Users');
 			$this->set('main_page', 'users');
 		}
@@ -126,11 +119,20 @@
 			foreach ($params as $key => $value)
 				if(trim($value) != '')
 					array_push($use_filters, $filters[$key]);
-			$this->paginate = array(
+
+			$allowed = array('sort', 'direction', 'page');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			foreach ($params as $key => $value)
+				if($value == null)
+					unset($params[$key]);
+
+			$options = array(
 				'limit' => 10,
 				'conditions' => array('OR' => $use_filters),
 				'order' => array('User.registration_date', 'User.username')
 			);
+			$this->paginate = array_merge($options, $params);
+			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
 			$active_users = $this->paginate('User');
 			$this->set(compact('active_users'));
 			$this->layout = 'ajax';
@@ -159,14 +161,27 @@
 			foreach ($params as $key => $value)
 				if(trim($value) != '')
 					array_push($use_filters, $filters[$key]);
-			$this->paginate = array(
+
+			$allowed = array('sort', 'direction', 'page');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			foreach ($params as $key => $value)
+				if($value == null)
+					unset($params[$key]);
+
+			$options = array(
 				'limit' => 10,
 				'conditions' => array('OR' => $use_filters),
 				'order' => array('User.registration_date', 'User.username')
 			);
+			$this->paginate = array_merge($options, $params);
+			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
 			$inactive_users = $this->paginate('User');
 			$this->set(compact('inactive_users'));
 			$this->layout = 'ajax';
+		}
+
+		public function epins() {
+			$this->setAction('track_epins');
 		}
 
 		public function create_epins() {
@@ -195,6 +210,38 @@
 		public function track_epins() {
 			$this->set('title', 'Admin | Tracking Epins');
 			$this->set('main_page', 'epins');
+		}
+
+		public function ajax_track_epins() {
+			$allowed = array('pin', 'status', 'owner', 'user');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			$filters = array(
+				'pin' => array('Epin.pin' => $params['pin']),
+				'status' => array('Epin.status' => $params['status']),
+				'owner' => array('Owner.username' => $params['owner']),
+				'user' => array('User.username' => $params['user'])
+			);
+			$use_filters = array();
+			foreach ($params as $key => $value)
+				if(trim($value) != '')
+					array_push($use_filters, $filters[$key]);
+
+			$allowed = array('sort', 'direction', 'page');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			foreach ($params as $key => $value)
+				if($value == null)
+					unset($params[$key]);
+
+			$options = array(
+				'limit' => 10,
+				'conditions' => array('OR' => $use_filters),
+				'order' => array('Epin.generation_date', 'Epin.status')
+			);
+			$this->paginate = array_merge($options, $params);
+			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+			$epins = $this->paginate('Epin');
+			$this->set(compact('epins'));
+			$this->layout = 'ajax';
 		}
 
 		public function plans() {

@@ -3,7 +3,7 @@
 	$pages = array(
 		array('icon' => 'desktop', 'action' => 'index', 'page' => 'Dashboard'),
 		array('icon' => 'users', 'action' => 'users', 'page' => 'Users'),
-		array('icon' => 'barcode', 'action' => 'epins', 'page' => 'Epins'),
+		array('icon' => 'barcode', 'action' => 'epins', 'page' => 'EPins'),
 		array('icon' => 'pie-chart', 'action' => 'plans', 'page' => 'Plans'),
 		array('icon' => 'suitcase', 'action' => 'products', 'page' => 'Products'),
 		array('icon' => 'money', 'action' => 'transactions', 'page' => 'Transactions')

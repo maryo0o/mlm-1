@@ -1,10 +1,6 @@
 <style type="text/css">
 	#create-epins .epin-fields {
-		margin-bottom: 5px;
-	}
-
-	#create-epins .epin-fields:last-child {
-		margin-bottom: 0;
+		margin-bottom: 10px;
 	}
 
 	#create-epins .epin-fields .form-group {

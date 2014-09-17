@@ -1,9 +1,9 @@
-<h4>Epin Management</h4>
+<h4>EPin Management</h4>
 <?php
 	$current_page = isset($current_page) ? $current_page : null;
 	$pages = array(
 		array('icon' => 'pencil', 'action' => 'create_epins', 'page' => 'Create New Pins'),
-		array('icon' => 'book', 'action' => 'track_epins', 'page' => 'Tracking Epins')
+		array('icon' => 'book', 'action' => 'track_epins', 'page' => 'Tracking EPins')
 	);
 ?>
 <div class="sub-page-navbar">

@@ -12,7 +12,9 @@
 		width: 172px;
 	}
 </style>
+
 <?php echo $this->element('admin_users_navbar'); ?>
+
 <h4>View Inactive Users</h4>
 <form id="users-search-form" class="form-inline">
 	<h4 class="pull-left">Search</h4>
@@ -40,6 +42,7 @@
 		var filter_form = $('#users-search-form');
 		filter_form.validate();
 		get_inactive_users();
+		var filters;
 
 		$('body').on('submit', filter_form, function() {
 			get_inactive_users();
@@ -50,9 +53,22 @@
 			$this = $(this);
 			page_url = $(this).attr('href');
 			if(page_url != null) {
+				var params = {};
+				var url_filters = page_url.split('/');
+				$.each(url_filters, function (key, value) {
+					if(value.indexOf(':') > -1) {
+						param_parts = value.split(':');
+						params[param_parts[0]] = param_parts[1];
+					}
+				});
+				$.each(filters, function (key, value) {
+					if(value != '')
+						params[key] = value;
+				});
 				$.ajax({
-					url: page_url,
-					type: 'GET',
+					url: '<?php echo $this->webroot; ?>admin/ajax_inactive_users',
+					type: 'POST',
+					data: params,
 					beforeSend: function() {
 						$('#inactive-users-container').append(ajax_loader);
 					},
@@ -70,7 +86,7 @@
 			$.each(inputs, function (i, input) {
 				params[input.name] = input.value;
 			});
-			params['is_ajax'] = true;
+			filters = params;
 			$.ajax({
 				url: '<?php echo $this->webroot; ?>admin/ajax_inactive_users',
 				type: 'POST',
