@@ -18,7 +18,7 @@
 			echo "<td>".ucwords($epin['Epin']['status'])."</td>";
 			echo "<td>".($epin['Owner']['username'] == null ? '-' : $epin['Owner']['username'])."</td>";
 			echo "<td>".($epin['User']['username'] == null ? '-' : $epin['User']['username'])."</td>";
-			echo "<td>".($epin['Epin']['used_date'] == '0000-00-00' ? '-' : $epin['Epin']['used_date'])."</td>";
+			echo "<td>".($epin['Epin']['used_date'] == '0000-00-00 00:00:00' ? '-' : $epin['Epin']['used_date'])."</td>";
 			echo "</tr>";
 		}
 	?>

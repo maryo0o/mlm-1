@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2014 at 04:20 PM
+-- Generation Time: Sep 21, 2014 at 10:30 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `country_id` int(5) NOT NULL,
-  `registration_date` date NOT NULL,
+  `registration_date` datetime NOT NULL,
   `membership_mlm_type` int(5) NOT NULL,
   `product_mlm_type` int(5) NOT NULL,
   `role` varchar(10) NOT NULL,
