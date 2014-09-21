@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2014 at 03:55 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Sep 21, 2014 at 06:11 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -40,24 +40,24 @@ CREATE TABLE IF NOT EXISTS `commissions` (
 --
 
 INSERT INTO `commissions` (`id`, `level`, `percent`, `mlm_type_id`) VALUES
-(1, 1, 1, 2),
-(2, 2, 2, 2),
-(3, 3, 3, 2),
-(12, 1, 5, 3),
-(13, 2, 10, 3),
-(14, 3, 15, 3),
-(15, 4, 20, 3),
-(16, 5, 25, 3),
-(22, 1, 10, 1),
-(23, 2, 9, 1),
-(24, 3, 8, 1),
-(25, 4, 7, 1),
-(26, 5, 6, 1),
-(27, 1, 10, 6),
-(28, 2, 20, 6),
-(29, 3, 30, 6),
-(30, 4, 40, 6),
-(31, 5, 50, 6);
+(1, 1, '1', 2),
+(2, 2, '2', 2),
+(3, 3, '3', 2),
+(12, 1, '5', 3),
+(13, 2, '10', 3),
+(14, 3, '15', 3),
+(15, 4, '20', 3),
+(16, 5, '25', 3),
+(22, 1, '10', 1),
+(23, 2, '9', 1),
+(24, 3, '8', 1),
+(25, 4, '7', 1),
+(26, 5, '6', 1),
+(27, 1, '10', 6),
+(28, 2, '20', 6),
+(29, 3, '30', 6),
+(30, 4, '40', 6),
+(31, 5, '50', 6);
 
 -- --------------------------------------------------------
 
@@ -348,12 +348,12 @@ CREATE TABLE IF NOT EXISTS `epins` (
 --
 
 INSERT INTO `epins` (`id`, `pin`, `value`, `price`, `purpose`, `generation_date`, `used_date`, `status`, `user_id`, `owner_id`) VALUES
-(2, 'YQM9SSU45T63JKHF1', 12, 12, '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'not available', 1, 1),
-(3, 'VOHAPIUTRL08RIMRK', 13, 13, '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'available', 0, 1),
-(8, 'TBMYQLXX15O4IECFG', 12, 12, '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'available', 0, 0),
-(9, 'A4K5OMRN03A2SMEIC', 200, 300, '', '2014-09-21 12:16:49', '0000-00-00 00:00:00', 'available', 0, 0),
-(10, 'GKK59H6ZH3NXWMBRT', 300, 200, '', '2014-09-21 12:16:49', '0000-00-00 00:00:00', 'available', 0, 0),
-(11, '12K26VRXPGKU7PV9S', 34, 66, '', '2014-09-21 12:17:08', '0000-00-00 00:00:00', 'available', 0, 0);
+(2, 'YQM9SSU45T63JKHF1', '12', '12', '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'not available', 1, 1),
+(3, 'VOHAPIUTRL08RIMRK', '13', '13', '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'available', 0, 1),
+(8, 'TBMYQLXX15O4IECFG', '12', '12', '', '2014-09-14 00:00:00', '0000-00-00 00:00:00', 'available', 0, 0),
+(9, 'A4K5OMRN03A2SMEIC', '200', '300', '', '2014-09-21 12:16:49', '0000-00-00 00:00:00', 'available', 0, 0),
+(10, 'GKK59H6ZH3NXWMBRT', '300', '200', '', '2014-09-21 12:16:49', '0000-00-00 00:00:00', 'available', 0, 0),
+(11, '12K26VRXPGKU7PV9S', '34', '66', '', '2014-09-21 12:17:08', '0000-00-00 00:00:00', 'available', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -423,6 +423,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `product_mlm_type` int(5) NOT NULL,
   `role` varchar(10) NOT NULL,
   `suspended` tinyint(1) NOT NULL DEFAULT '0',
+  `activated` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
@@ -431,28 +432,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `registration_date` (`registration_date`),
   KEY `membership_mlm_type` (`membership_mlm_type`),
   KEY `product_mlm_type` (`product_mlm_type`),
-  KEY `suspended` (`suspended`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+  KEY `suspended` (`suspended`),
+  KEY `activated` (`activated`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `sponsor_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address`, `country_id`, `registration_date`, `membership_mlm_type`, `product_mlm_type`, `role`, `suspended`) VALUES
-(1, 0, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin@test.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-08 00:00:00', 1, 4, 'admin', 0),
-(5, 1, 'mikelito92', '5f4dcc3b5aa765d61d8327deb882cf99', 'mikelito92@gmail.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(17, 1, 'username1', '5f4dcc3b5aa765d61d8327deb882cf99', 'username1@gmail.com', 'Michelle', 'Palacio', 'Piapi, Boulevard, Davao City', 45, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(18, 1, 'username2', '5f4dcc3b5aa765d61d8327deb882cf99', 'username2@gmail.com', 'Mike', 'Palacio', 'Piapi, Boulevard, Davao City', 58, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(19, 1, 'username3', '5f4dcc3b5aa765d61d8327deb882cf99', 'username3@gmail.com', 'Mikelito', 'Palacio', 'Piapi, Boulevard, Davao City', 96, '2014-09-13 00:00:00', 1, 4, 'user', 1),
-(20, 1, 'username4', '5f4dcc3b5aa765d61d8327deb882cf99', 'username4@gmail.com', 'Miguel', 'Silawan', 'Piapi, Boulevard, Davao City', 25, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(21, 1, 'username5', '5f4dcc3b5aa765d61d8327deb882cf99', 'username5@gmail.com', 'Michelle', 'Silawan', 'Piapi, Boulevard, Davao City', 125, '2014-09-13 00:00:00', 1, 4, 'user', 1),
-(22, 1, 'username6', '5f4dcc3b5aa765d61d8327deb882cf99', 'username6@gmail.com', 'Mike', 'Silawan', 'Piapi, Boulevard, Davao City', 89, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(23, 1, 'username7', '5f4dcc3b5aa765d61d8327deb882cf99', 'username7@gmail.com', 'Mikelito', 'Silawan', 'Piapi, Boulevard, Davao City', 145, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(24, 1, 'username8', '5f4dcc3b5aa765d61d8327deb882cf99', 'username8@gmail.com', 'Mikee', 'Palacio', 'Piapi, Boulevard, Davao City', 154, '2014-09-13 00:00:00', 1, 4, 'user', 1),
-(25, 1, 'username9', '5f4dcc3b5aa765d61d8327deb882cf99', 'username9@gmail.com', 'Mikee', 'Silawan', 'Piapi, Boulevard, Davao City', 210, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(26, 1, 'username10', '5f4dcc3b5aa765d61d8327deb882cf99', 'username10@gmail.com', 'Miguel', 'Silawan', 'Piapi, Boulevard, Davao City', 3, '2014-09-13 00:00:00', 1, 4, 'user', 0),
-(27, 0, 'delux_test', '5f4dcc3b5aa765d61d8327deb882cf99', 'delux@test.com', 'Michael', 'Palacio', 'Address', 1, '2014-09-14 00:00:00', 1, 4, 'user', 0),
-(28, 0, 'jkhklhjklhkljl', '5f4dcc3b5aa765d61d8327deb882cf99', 'jhgkfjghj@hfjkhglkf.com', 'Michael', 'Palacio', 'Address', 3, '2014-09-14 00:00:00', 1, 4, 'user', 0);
+INSERT INTO `users` (`id`, `sponsor_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address`, `country_id`, `registration_date`, `membership_mlm_type`, `product_mlm_type`, `role`, `suspended`, `activated`) VALUES
+(1, 0, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin@test.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-08 00:00:00', 1, 4, 'admin', 0, 1),
+(17, 1, 'username1', '5f4dcc3b5aa765d61d8327deb882cf99', 'username1@gmail.com', 'Michelle', 'Palacio', 'Piapi, Boulevard, Davao City', 45, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(18, 1, 'username2', '5f4dcc3b5aa765d61d8327deb882cf99', 'username2@gmail.com', 'Mike', 'Palacio', 'Piapi, Boulevard, Davao City', 58, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(19, 1, 'username3', '5f4dcc3b5aa765d61d8327deb882cf99', 'username3@gmail.com', 'Mikelito', 'Palacio', 'Piapi, Boulevard, Davao City', 96, '2014-09-13 00:00:00', 1, 4, 'user', 1, 0),
+(20, 1, 'username4', '5f4dcc3b5aa765d61d8327deb882cf99', 'username4@gmail.com', 'Miguel', 'Silawan', 'Piapi, Boulevard, Davao City', 25, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(21, 1, 'username5', '5f4dcc3b5aa765d61d8327deb882cf99', 'username5@gmail.com', 'Michelle', 'Silawan', 'Piapi, Boulevard, Davao City', 125, '2014-09-13 00:00:00', 1, 4, 'user', 1, 0),
+(22, 1, 'username6', '5f4dcc3b5aa765d61d8327deb882cf99', 'username6@gmail.com', 'Mike', 'Silawan', 'Piapi, Boulevard, Davao City', 89, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(23, 1, 'username7', '5f4dcc3b5aa765d61d8327deb882cf99', 'username7@gmail.com', 'Mikelito', 'Silawan', 'Piapi, Boulevard, Davao City', 145, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(24, 1, 'username8', '5f4dcc3b5aa765d61d8327deb882cf99', 'username8@gmail.com', 'Mikee', 'Palacio', 'Piapi, Boulevard, Davao City', 154, '2014-09-13 00:00:00', 1, 4, 'user', 1, 0),
+(25, 1, 'username9', '5f4dcc3b5aa765d61d8327deb882cf99', 'username9@gmail.com', 'Mikee', 'Silawan', 'Piapi, Boulevard, Davao City', 210, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(26, 1, 'username10', '5f4dcc3b5aa765d61d8327deb882cf99', 'username10@gmail.com', 'Miguel', 'Silawan', 'Piapi, Boulevard, Davao City', 3, '2014-09-13 00:00:00', 1, 4, 'user', 0, 0),
+(27, 0, 'delux_test', '5f4dcc3b5aa765d61d8327deb882cf99', 'delux@test.com', 'Michael', 'Palacio', 'Address', 1, '2014-09-14 00:00:00', 1, 4, 'user', 0, 0),
+(28, 0, 'jkhklhjklhkljl', '5f4dcc3b5aa765d61d8327deb882cf99', 'jhgkfjghj@hfjkhglkf.com', 'Michael', 'Palacio', 'Address', 3, '2014-09-14 00:00:00', 1, 4, 'user', 0, 0),
+(31, 0, 'mikelito92', 'efd524bfbf5f2032b0172f3b29f67145', 'mikelito92@gmail.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-21 06:00:34', 1, 6, 'user', 0, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

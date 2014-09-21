@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2014 at 10:30 AM
+-- Generation Time: Sep 21, 2014 at 06:10 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `product_mlm_type` int(5) NOT NULL,
   `role` varchar(10) NOT NULL,
   `suspended` tinyint(1) NOT NULL DEFAULT '0',
+  `activated` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
@@ -49,8 +50,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `registration_date` (`registration_date`),
   KEY `membership_mlm_type` (`membership_mlm_type`),
   KEY `product_mlm_type` (`product_mlm_type`),
-  KEY `suspended` (`suspended`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `suspended` (`suspended`),
+  KEY `activated` (`activated`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
