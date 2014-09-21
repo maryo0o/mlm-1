@@ -8,8 +8,8 @@
 				'foreignKey' => 'membership_mlm_type',
 				'condition' => array('MlmType.purpose' => 'membership')
 			),
-			'ProductMlmType' => array(
-				'className' => 'MlmType',
+			'ProductMlmTypeUser' => array(
+				'className' => 'User',
 				'foreignKey' => 'product_mlm_type',
 				'condition' => array('MlmType.purpose' => 'product')
 			)

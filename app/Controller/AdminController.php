@@ -234,7 +234,7 @@
 
 			$options = array(
 				'limit' => 10,
-				'conditions' => array('OR' => $use_filters),
+				'conditions' => $use_filters,
 				'order' => array('Epin.generation_date', 'Epin.status')
 			);
 			$this->paginate = array_merge($options, $params);
@@ -245,7 +245,31 @@
 		}
 
 		public function plans() {
-			$this->set('title', 'Admin | Plan Management');
+			$this->setAction('set_plans');
+		}
+
+		public function set_plans() {
+			$allowed = array('membership_type', 'product_type');
+			if($this->request->is('post')) {
+				$params = $this->uniform_params($this->request->data, $allowed);
+				$this->MlmType->updateAll(array('MlmType.active' => 0));
+				$this->MlmType->save(array('id' => $params['membership_type'], 'active' => 1));
+				$this->MlmType->save(array('id' => $params['product_type'], 'active' => 1));
+				$this->Session->setFlash('Plan types successfully set.', 'success');
+				$this->redirect('/admin/set_plans');
+			}
+
+			$this->MlmType->recursive = -1;
+			$membership_types = $this->MlmType->find('all', array('conditions' => array('MlmType.purpose' => 'membership')));
+			$product_types = $this->MlmType->find('all', array('conditions' => array('MlmType.purpose' => 'product')));
+			$this->set(compact('membership_types', 'product_types'));
+			$this->set('title', 'Admin | Set Plan Types');
+			$this->set('main_page', 'plans');
+		}
+
+		public function set_commissions() {
+			$this->set('title', 'Admin | Set Commission Levels');
+			$this->set('main_page', 'plans');
 		}
 
 		public function products() {
