@@ -38,17 +38,6 @@
 
 <h4>Create New Epins</h4>
 <form id="create-epins" class="form-inline" action="<?php echo $this->webroot."admin/create_epins"; ?>" method="POST">
-	<!-- <div class="epin-fields"> -->
-		<?php
-			$inputs = array(
-				'pin' => array('label-class' => '', 'name' => 'Epin', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required', 'readonly' => '')),
-				'value' => array('label-class' => '', 'name' => 'Value', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required|money')),
-				'price' => array('label-class' => '', 'name' => 'Price', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required|money'))
-			);
-			// echo $this->element('inline_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array()), 'errors' => (isset($errors) ? $errors : array())));
-		?>
-		<!-- <i class="glyphicon glyphicon-remove"></i>
-	</div> -->
 	<div class="epin-fields">
 		<div class="form-group">
 			<label for="pin" class="">Epin</label>
@@ -93,11 +82,6 @@
 		$('body').on('click', 'i.glyphicon-remove', function() {
 			if($('.epin-fields').length > 1)
 				$(this).closest('.epin-fields').remove();
-		});
-
-		$('body').on('submit', form, function() {
-			if(!($('.epin-fields').length))
-				return false;
 		});
 
 		function generate_epin() {

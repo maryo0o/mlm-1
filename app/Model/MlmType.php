@@ -12,6 +12,10 @@
 				'className' => 'User',
 				'foreignKey' => 'product_mlm_type',
 				'condition' => array('MlmType.purpose' => 'product')
+			),
+			'Commission' => array(
+				'className' => 'Commission',
+				'foreignKey' => 'mlm_type_id'
 			)
 		);
 	}

@@ -2,7 +2,7 @@
 	App::uses('AppController', 'Controller');
 
 	class AdminController extends AppController {
-		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User');
+		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User', 'Commission');
 		var $components = array('RequestHandler');
 
 		public function beforeFilter() {
@@ -85,7 +85,7 @@
 					$params['country_id'] = $params['country'];
 					$params['membership_mlm_type'] = $membership_type['MlmType']['id'];
 					$params['product_mlm_type'] = $product_type['MlmType']['id'];
-					$params['registration_date'] = date('Y-m-d');
+					$params['registration_date'] = date('Y-m-d h:i:s');
 					$params['role'] = 'user';
 					$this->User->create();
 					$this->User->save(array('User' => $params));
@@ -193,7 +193,7 @@
 						'pin' => $params['pin'][$i],
 						'price' => $params['price'][$i],
 						'value' => $params['value'][$i],
-						'generation_date' => date('Y-m-d'),
+						'generation_date' => date('Y-m-d h:i:s'),
 						'status' => 'available'
 					));
 				try {
@@ -268,6 +268,36 @@
 		}
 
 		public function set_commissions() {
+			$this->MlmType->recursive = -1;
+			$membership = $this->MlmType->find('first', array('conditions' => array('MlmType.purpose' => 'membership', 'MlmType.active' => 1)));
+			$product = $this->MlmType->find('first', array('conditions' => array('MlmType.purpose' => 'product', 'MlmType.active' => 1)));
+
+			if($this->request->is('post')) {
+				$params = $this->request->data;
+				$membership_commissions = array();
+				for($i = 0; $i < count($params['membership_commission']); $i++)
+					array_push($membership_commissions, array(
+						'level' => ($i + 1),
+						'percent' => $params['membership_commission'][$i],
+						'mlm_type_id' => $membership['MlmType']['id']
+					));
+				$product_commissions = array();
+				for($i = 0; $i < count($params['product_commission']); $i++)
+					array_push($product_commissions, array(
+						'level' => ($i + 1),
+						'percent' => $params['product_commission'][$i],
+						'mlm_type_id' => $product['MlmType']['id']
+					));
+				$this->Commission->deleteAll(array('mlm_type_id' => array($membership['MlmType']['id'], $product['MlmType']['id'])));
+				$this->Commission->saveAll(array_merge($membership_commissions, $product_commissions));
+				$this->Session->setFlash('Commissions successfully set.', 'success');
+				$this->redirect('/admin/set_commissions');
+			}
+
+			$this->Commission->recursive = -1;
+			$membership_levels = $this->Commission->find('all', array('conditions' => array('mlm_type_id' => $membership['MlmType']['id']), 'order' => 'level ASC'));
+			$product_levels = $this->Commission->find('all', array('conditions' => array('mlm_type_id' => $product['MlmType']['id']), 'order' => 'level ASC'));
+			$this->set(compact('membership', 'product', 'membership_levels', 'product_levels'));
 			$this->set('title', 'Admin | Set Commission Levels');
 			$this->set('main_page', 'plans');
 		}
