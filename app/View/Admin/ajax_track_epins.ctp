@@ -3,6 +3,7 @@
 <table class="table table-striped">
 	<tr class="ajax-pagination">
 		<th><?php echo $paginator->sort('Epin.pin', 'EPin', array('url' => array('page' => $page))); ?></th>
+		<th><?php echo $paginator->sort('Epin.purpose', 'Purpose', array('url' => array('page' => $page))); ?></th>
 		<th><?php echo $paginator->sort('Epin.generation_date', 'Generated on', array('url' => array('page' => $page))); ?></th>
 		<th><?php echo $paginator->sort('Epin.status', 'EPin Status', array('url' => array('page' => $page))); ?></th>
 		<th><?php echo $paginator->sort('Owner.username', 'Owned by', array('url' => array('page' => $page))); ?></th>
@@ -14,6 +15,7 @@
 		foreach ($epins as $epin) {
 			echo "<tr>";
 			echo "<td>".$epin['Epin']['pin']."</td>";
+			echo "<td>".ucwords($epin['Epin']['purpose'])."</td>";
 			echo "<td>".$epin['Epin']['generation_date']."</td>";
 			echo "<td>".ucwords($epin['Epin']['status'])."</td>";
 			echo "<td>".($epin['Owner']['username'] == null ? '-' : $epin['Owner']['username'])."</td>";
