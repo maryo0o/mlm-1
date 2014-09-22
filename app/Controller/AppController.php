@@ -44,4 +44,25 @@ class AppController extends Controller {
 			$filtered_params[$key] = isset($param[$key]) ? $param[$key] : null;
 		return $filtered_params;
 	}
+
+	public function send_email($to, $subject, $template, $data) {
+		$this->Email->smtpOptions = array(
+			'port' => '465',
+			'timeout'=>'30',
+			'host' => 'ssl://smtp.gmail.com',
+			'username'=>'mikelito92@gmail.com',
+			'password'=>'pass123word'
+		);
+
+		foreach ($data as $key => $value)
+			$this->set($key, $value);		
+
+		$this->Email->delivery = 'smtp';
+		$this->Email->from = 'mikelito92@gmail.com';
+		$this->Email->to = $to;
+		$this->Email->subject = $subject;
+		$this->Email->template = $template;
+		$this->Email->sendAs = 'both';
+		$this->Email->send();
+	}
 }

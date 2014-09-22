@@ -1,9 +1,10 @@
 <?php
 	App::uses('AppController', 'Controller');
+	App::uses('CakeEmail', 'Network/Email');
 
 	class AdminController extends AppController {
 		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User', 'Commission');
-		var $components = array('RequestHandler');
+		var $components = array('RequestHandler', 'Email');
 
 		public function beforeFilter() {
 			$this->Auth->allow();
@@ -89,7 +90,14 @@
 					$params['role'] = 'user';
 					$this->User->create();
 					$this->User->save(array('User' => $params));
-					$this->Session->setFlash('User successfully created.', 'success');
+
+					$data = array(
+						'name' => $params['first_name']." ".$params['last_name'],
+						'activation_link' => Router::url('/', true)."users/activate_user/".$this->User->id
+					);
+					$this->send_email($params['email'], 'Complete Registration', 'registration', $data);
+
+					$this->Session->setFlash('User successfully created. Please check your email.', 'success');
 					$this->redirect('/admin/create_user');
 				}
 			}
