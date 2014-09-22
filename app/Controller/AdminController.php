@@ -194,7 +194,8 @@
 						'price' => $params['price'][$i],
 						'value' => $params['value'][$i],
 						'generation_date' => date('Y-m-d h:i:s'),
-						'status' => 'available'
+						'status' => 'available',
+						'purpose' => $params['purpose'][$i]
 					));
 				try {
 					$this->Epin->saveAll($epins);

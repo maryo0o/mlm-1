@@ -3,14 +3,17 @@
 		margin-bottom: 10px;
 	}
 
+	#create-epins .epin-fields .form-group:first-of-type {
+		width: 230px;
+	}
+
 	#create-epins .epin-fields .form-group {
-		margin-right: 20px;
 		vertical-align: top;
-		width: 275px;
+		width: 210px;
 	}
 
 	#create-epins .epin-fields .form-group:last-of-type {
-		margin-right: 5px !important;
+		width: 225px;
 	}
 
 	#create-epins .epin-fields .form-group label {
@@ -18,7 +21,11 @@
 	}
 
 	#create-epins .epin-fields .form-group input {
-		width: 220px !important;
+		width: 150px !important;
+	}
+
+	#create-epins .epin-fields .form-group input#pin {
+		width: 180px !important;
 	}
 
 	#create-epins .epin-fields .form-group p {
@@ -50,6 +57,14 @@
 		<div class="form-group">
 			<label for="price" class="">Price</label>
 			<input type="text" class="form-control input-sm" id="price" name="price[]" placeholder="Price" data-validate="required|money" value="">
+		</div>
+		<div class="form-group">
+			<label for="purpose" class="">Purpose</label>
+			<select class="form-control input-sm" id="purpose" name="purpose[]" data-validate="required">
+				<option value="">Purpose</option>
+				<option value="membership">Membership</option>
+				<option value="product ordering">Product Ordering</option>
+			</select>
 		</div>
 		<i class="glyphicon glyphicon-remove"></i>
 	</div>
