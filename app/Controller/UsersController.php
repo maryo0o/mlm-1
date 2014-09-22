@@ -87,8 +87,18 @@ class UsersController extends AppController {
 	}
 
 	public function activate_user($id) {
-		$this->User->save(array('id' => $id, 'activated' => 1));
-		$this->Session->setFlash('Your account is now activated. You can now login.', 'success');
+		$this->User->recursive = -1;
+		$user = $this->User->findById($id);
+		if($user) {
+			if(!$user['User']['activated']) {
+				$this->User->save(array('id' => $id, 'activated' => 1));
+				$this->Session->setFlash('Your account is now activated. You can now login.', 'success');
+			}
+			else
+				$this->Session->setFlash('Your account is already activated.', 'error');
+		}
+		else
+			$this->Session->setFlash('User not found.', 'error');
 		$this->redirect("/login");
 	}
 }
