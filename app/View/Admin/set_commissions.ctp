@@ -20,7 +20,10 @@
 				<div class="form-group commission-field">
 					<label class="col-md-3 control-label">Level 1</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control input-sm" name="membership_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit">
+						<div class="input-group">
+							<input type="text" class="form-control input-sm" name="membership_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit">
+							<div class="input-group-addon">%</div>
+						</div>
 					</div>
 					<div class="col-md-1">
 						<i class="glyphicon glyphicon-remove"></i>
@@ -31,7 +34,10 @@
 					<div class="form-group commission-field">
 						<label class="col-md-3 control-label">Level 1</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control input-sm" name="membership_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit" value="<?php echo $level['Commission']['percent']; ?>">
+							<div class="input-group">
+								<input type="text" class="form-control input-sm" name="membership_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit" value="<?php echo $level['Commission']['percent']; ?>">
+								<div class="input-group-addon input-sm">%</div>
+							</div>
 						</div>
 						<div class="col-md-1">
 							<i class="glyphicon glyphicon-remove"></i>
@@ -52,7 +58,10 @@
 				<div class="form-group commission-field">
 					<label class="col-md-3 control-label">Level 1</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control input-sm" name="product_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit">
+						<div class="input-group">
+							<input type="text" class="form-control input-sm" name="product_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit">
+							<div class="input-group-addon input-sm">%</div>
+						</div>
 					</div>
 					<div class="col-md-1">
 						<i class="glyphicon glyphicon-remove"></i>
@@ -63,7 +72,10 @@
 					<div class="form-group commission-field">
 						<label class="col-md-3 control-label">Level 1</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control input-sm" name="product_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit" value="<?php echo $level['Commission']['percent']; ?>">
+							<div class="input-group">
+								<input type="text" class="form-control input-sm" name="product_commission[]" placeholder="Commission Percentage" data-validate="required|percentage|limit" value="<?php echo $level['Commission']['percent']; ?>">
+								<div class="input-group-addon input-sm">%</div>
+							</div>
 						</div>
 						<div class="col-md-1">
 							<i class="glyphicon glyphicon-remove"></i>
