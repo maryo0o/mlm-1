@@ -27,6 +27,7 @@
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+	Router::connect('/register', array('controller' => 'users', 'action' => 'register'));
 	// Router::connect('/admin/*', array('controller' => 'admin'));
 	foreach(scandir('../View/Pages') as $path){
 		if(pathinfo($path, PATHINFO_EXTENSION) == "ctp"){

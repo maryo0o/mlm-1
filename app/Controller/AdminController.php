@@ -1,6 +1,5 @@
 <?php
 	App::uses('AppController', 'Controller');
-	App::uses('CakeEmail', 'Network/Email');
 
 	class AdminController extends AppController {
 		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User', 'Commission');

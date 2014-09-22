@@ -14,6 +14,7 @@
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-6">
 			<button type="submit" class="btn btn-default">Sign in</button>
+			&nbsp;&nbsp;&nbsp;Not a member yet? Register <a href="<?php echo $this->webroot."register" ?>">here</a>.
 		</div>
 	</div>
 </form>
