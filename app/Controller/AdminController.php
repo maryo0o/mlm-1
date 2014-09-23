@@ -90,12 +90,6 @@
 					$this->User->create();
 					$this->User->save(array('User' => $params));
 
-					$data = array(
-						'name' => $params['first_name']." ".$params['last_name'],
-						'activation_link' => Router::url('/', true)."users/activate_user/".$this->User->id
-					);
-					$this->send_email($params['email'], 'Complete Registration', 'registration', $data);
-
 					$this->Session->setFlash('User successfully created. Please check your email.', 'success');
 					$this->redirect('/admin/create_user');
 				}

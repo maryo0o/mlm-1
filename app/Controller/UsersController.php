@@ -15,12 +15,8 @@ class UsersController extends AppController {
 			$user = $this->User->findByUsername($this->request->data['username']);
 			if(!empty($user)) {
 				if($user['User']['password'] == md5($this->request->data['password'])) {
-					if($user['User']['activated']) {
-						$this->Auth->login($user['User']);
-						$this->redirect('/');
-					}
-					else
-						$this->Session->setFlash('Please activate your account first.', 'error');
+					$this->Auth->login($user['User']);
+					$this->redirect('/');
 				}
 				else
 					$this->Session->setFlash('Wrong password.', 'error');
@@ -68,13 +64,7 @@ class UsersController extends AppController {
 				$this->User->create();
 				$this->User->save(array('User' => $params));
 
-				$data = array(
-					'name' => $params['first_name']." ".$params['last_name'],
-					'activation_link' => Router::url('/', true)."users/activate_user/".$this->User->id
-				);
-				$this->send_email($params['email'], 'Complete Registration', 'registration', $data);
-
-				$this->Session->setFlash('User successfully created. Please check your email.', 'success');
+				$this->Session->setFlash('User successfully created. You can now login.', 'success');
 				$this->redirect('/login');
 			}
 		}
@@ -84,21 +74,5 @@ class UsersController extends AppController {
 		$this->set(compact('countries'));
 		$this->set('title', 'MLM | Register');
 		$this->layout = 'login';
-	}
-
-	public function activate_user($id) {
-		$this->User->recursive = -1;
-		$user = $this->User->findById($id);
-		if($user) {
-			if(!$user['User']['activated']) {
-				$this->User->save(array('id' => $id, 'activated' => 1));
-				$this->Session->setFlash('Your account is now activated. You can now login.', 'success');
-			}
-			else
-				$this->Session->setFlash('Your account is already activated.', 'error');
-		}
-		else
-			$this->Session->setFlash('User not found.', 'error');
-		$this->redirect("/login");
 	}
 }
