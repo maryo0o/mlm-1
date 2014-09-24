@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `product_mlm_type` (`product_mlm_type`),
   KEY `suspended` (`suspended`),
   KEY `activated` (`activated`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

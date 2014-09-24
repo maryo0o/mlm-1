@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2014 at 10:30 AM
+-- Generation Time: Sep 24, 2014 at 04:36 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -23,18 +23,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transactions`
+-- Table structure for table `requests`
 --
 
-CREATE TABLE IF NOT EXISTS `transactions` (
+CREATE TABLE IF NOT EXISTS `requests` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `description` varchar(100) NOT NULL,
+  `purpose` varchar(100) NOT NULL,
   `user_id` int(20) NOT NULL,
+  `count` int(20) NOT NULL,
   `amount` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `type` (`type`),
+  KEY `purpose` (`purpose`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

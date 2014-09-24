@@ -43,10 +43,10 @@ CREATE TABLE IF NOT EXISTS `mlm_types` (
 --
 
 INSERT INTO `mlm_types` (`id`, `name`, `child`, `depth`, `purpose`, `active`) VALUES
-(1, 'Matrix (4x5)', 4, 5, 'membership', 1),
+(1, 'Matrix', 4, 5, 'membership', 1),
 (2, 'Unilevel', 0, 10, 'membership', 0),
 (3, 'Binary', 2, 10, 'membership', 0),
-(4, 'Matrix (4x5)', 4, 5, 'product', 1),
+(4, 'Matrix', 4, 5, 'product', 1),
 (5, 'Unilevel', 0, 10, 'product', 0),
 (6, 'Binary', 2, 10, 'product', 0);
 
