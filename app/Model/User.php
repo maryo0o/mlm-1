@@ -35,6 +35,10 @@
 			'Epin' => array(
 				'className' => 'Epin',
 				'foreignKey' => 'user_id'
+			),
+			'Request' => array(
+				'className' => 'Request',
+				'foreignKey' => 'user_id'
 			)
 		);
 

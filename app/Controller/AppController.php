@@ -55,14 +55,14 @@ class AppController extends Controller {
 		);
 
 		foreach ($data as $key => $value)
-			$this->set($key, $value);		
+			$this->set($key, $value);
 
 		$this->Email->delivery = 'smtp';
 		$this->Email->from = 'mikelito92@gmail.com';
 		$this->Email->to = $to;
 		$this->Email->subject = $subject;
 		$this->Email->template = $template;
-		$this->Email->sendAs = 'both';
+		$this->Email->sendAs = 'html';
 		$this->Email->send();
 	}
 }
