@@ -66,7 +66,7 @@ class PagesController extends AppController {
 		$this->Request->create();
 		$this->Request->save(array('purpose' => 'buy_pins', 'user_id' => $this->Auth->User('id'), 'count' => $params['count'], 'amount' => $params['total']));
 		$params['name'] = $this->Auth->User('name');
-		$this->send_email($this->Auth->User('email'), 'Complete Registration', 'payment_details', $params);
+		$this->send_email($this->Auth->User('email'), 'Buy EPins', 'payment_details', $params);
 		$this->Session->setFlash('Thank you for making a request. Please check your email for the payment details.', 'success');
 		$this->redirect('/buy_pins');
 	}
