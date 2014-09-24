@@ -25,6 +25,6 @@
 		}
 	?>
 <?php else: ?>
-	<tr class="danger"><td colspan="6">There are no records found.</td></tr>
+	<tr class="danger"><td colspan="7">There are no records found.</td></tr>
 <?php endif; ?>
 </table>
