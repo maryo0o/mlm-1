@@ -317,7 +317,22 @@ CREATE TABLE IF NOT EXISTS `epins` (
   KEY `generation_date` (`generation_date`),
   KEY `status` (`status`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `epins`
+--
+
+INSERT INTO `epins` (`id`, `pin`, `value`, `price`, `purpose`, `generation_date`, `used_date`, `status`, `user_id`, `owner_id`) VALUES
+(1, 'WMLVC7EF5RGFKM4ZL', 1000, 500, 'membership', '2014-09-24 04:46:13', '0000-00-00 00:00:00', 'available', 0, 1),
+(2, '7WTGC9K6JZ64BT4OF', 1000, 500, 'membership', '2014-09-25 04:23:04', '0000-00-00 00:00:00', 'available', 0, 1),
+(3, 'CP6KFTDH7IBTG7523', 1000, 500, 'membership', '2014-09-25 04:27:36', '0000-00-00 00:00:00', 'available', 0, 1),
+(4, 'GLZ1QRN5VW2HFMV9I', 1000, 500, 'membership', '2014-09-25 04:27:36', '0000-00-00 00:00:00', 'available', 0, 1),
+(5, 'Z1ET63FNZH7RTDCEH', 1000, 500, 'membership', '2014-09-25 04:27:36', '0000-00-00 00:00:00', 'available', 0, 1),
+(6, 'VMI0LBTNFKOG73OQL', 1000, 500, 'membership', '2014-09-25 04:49:35', '0000-00-00 00:00:00', 'available', 0, 1),
+(7, 'YHXVPOD233DVDWOM0', 1000, 500, 'membership', '2014-09-25 04:49:35', '0000-00-00 00:00:00', 'available', 0, 1),
+(8, '5S8MI8T8DZ2ZSN9QH', 1000, 500, 'membership', '2014-09-25 04:49:35', '0000-00-00 00:00:00', 'available', 0, 1),
+(9, '0TOYH3XHRSZ15LBCT', 1000, 500, 'membership', '2014-09-25 04:49:35', '0000-00-00 00:00:00', 'available', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -361,6 +376,7 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `user_id` int(20) NOT NULL,
   `count` int(20) NOT NULL,
   `amount` decimal(10,0) NOT NULL,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `purpose` (`purpose`),
   KEY `user_id` (`user_id`)
@@ -423,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `sponsor_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address`, `country_id`, `registration_date`, `membership_mlm_type`, `product_mlm_type`, `role`, `suspended`, `activated`) VALUES
-(1, 0, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin@test.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-08 00:00:00', 1, 4, 'admin', 0, 0);
+(1, 0, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'mikelito92@gmail.com', 'Michael', 'Palacio', 'Piapi, Boulevard, Davao City', 169, '2014-09-08 00:00:00', 1, 4, 'admin', 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

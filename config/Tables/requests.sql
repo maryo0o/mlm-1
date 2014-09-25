@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2014 at 04:36 PM
+-- Generation Time: Sep 25, 2014 at 05:11 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `user_id` int(20) NOT NULL,
   `count` int(20) NOT NULL,
   `amount` decimal(10,0) NOT NULL,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `purpose` (`purpose`),
   KEY `user_id` (`user_id`)
