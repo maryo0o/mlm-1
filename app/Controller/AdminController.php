@@ -277,18 +277,31 @@
 
 			$this->Epin->recursive = 0;
 			if($this->Epin->find('count', array('conditions' => array('price' => $price, 'purpose' => 'membership', 'status' => 'available'))) >= $params['count']) {
-				$epins = $this->Epin->find('all', array('conditions' => array('price' => $price, 'purpose' => 'membership', 'status' => 'available'), 'limit' => $params['count']));
+				$epins = $this->Epin->find('all', array('conditions' => array('price' => $price, 'purpose' => 'membership', 'status' => 'available'), 'limit' => $params['count'], 'order' => 'generation_date asc'));
 				foreach($epins as $epin) {
 					$this->Epin->save(array('id' => $epin['Epin']['id'], 'owner_id' => $params['user_id'], 'status' => 'not available'));
 				}
 				$this->Transaction->create();
-				$this->Transaction->save(array('date' => date('Y-m-d h:i:s'), 'type' => 'buy_epins', 'user_id' => $params['user_id'], 'amount' => $params['amount']));
+				$this->Transaction->save(array('date' => date('Y-m-d h:i:s'), 'type' => 'buy_epins', 'user_id' => $params['user_id'], 'amount' => $params['amount'], 'description' => "buy {$params['count']} epins for {$params['amount']}"));
+				$this->User->recursive = 0;
+				$user = $this->User->findById($params['user_id']);
+				$params['name'] = $user['User']['name'];
+				$this->send_email($user['User']['email'], 'Buy EPins', 'epin_request_approved', $params);
 				$this->Request->delete($params['id']);
 				$this->set('data', array('success' => true));
 			}
 			else
 				$this->set('data', array('success' => false));
 
+			$this->layout = 'ajax';
+			$this->render('/Elements/serialize_json');
+		}
+
+		public function ajax_deny_epin_request() {
+			$allowed = array('id');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			$this->Request->delete($params['id']);
+			$this->set('data', array('success' => true));
 			$this->layout = 'ajax';
 			$this->render('/Elements/serialize_json');
 		}

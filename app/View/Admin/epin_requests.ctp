@@ -44,21 +44,55 @@
 				},
 				success: function (result) {
 					result_o = result;
-					result = JSON.parse(result);
-					$('.ajax-loader').remove();
-					if(result['success']) {
-						get_requests({});
-						show_alerts({alerts: get_alert('success', 'Transaction saved.'), anchor: $('#content'), insert_type: 'prepend'});
+					try {
+						result = JSON.parse(result);
+						$('.ajax-loader').remove();
+						if(result['success']) {
+							get_requests({});
+							show_alerts({alerts: get_alert('success', 'Transaction saved.'), anchor: $('#content'), insert_type: 'prepend'});
+						}
+						else if(!result['success']){
+							show_alerts({alerts: get_alert('error', 'There are not enough epins. Generate epins first.'), anchor: $('#content'), insert_type: 'prepend'});
+						}
 					}
-					else if(!result['success']){
-						show_alerts({alerts: get_alert('error', 'There are not enough epins. Generate epins first.'), anchor: $('#content'), insert_type: 'prepend'});
-					}
-					else {
+					catch(e) {
 						show_alerts({alerts: get_alert('error', 'Something went wrong.'), anchor: $('#content'), insert_type: 'prepend'});
 						console.log(result_o);
 					}
 				}
 			});
+			return false;
+		});
+
+		$('body').on('click', '[data-deny]', function() {
+			var t = $(this).closest('td');
+			var params = {};
+			params.id = t.data('id');
+			if(confirm('Are you sure you want to deny this epin request?')) {
+				$.ajax({
+					url: '<?php echo $this->webroot; ?>admin/ajax_deny_epin_request',
+					type: 'POST',
+					data: params,
+					beforeSend: function() {
+						$('#requests-container').append(ajax_loader);
+					},
+					success: function (result) {
+						result_o = result;
+						try {
+							result = JSON.parse(result);
+							$('.ajax-loader').remove();
+							if(result['success']) {
+								get_requests({});
+								show_alerts({alerts: get_alert('success', 'Request deleted.'), anchor: $('#content'), insert_type: 'prepend'});
+							}
+						}
+						catch(e) {
+							show_alerts({alerts: get_alert('error', 'Something went wrong.'), anchor: $('#content'), insert_type: 'prepend'});
+							console.log(result_o);
+						}
+					}
+				});
+			}
 			return false;
 		});
 
