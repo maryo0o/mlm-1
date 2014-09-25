@@ -44,7 +44,6 @@
 		})
 
 		$('body').on('click', '.ajax-pagination a', function() {
-			$this = $(this);
 			page_url = $(this).attr('href');
 			if(page_url != null) {
 				var params = {};

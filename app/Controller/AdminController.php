@@ -2,7 +2,7 @@
 	App::uses('AppController', 'Controller');
 
 	class AdminController extends AppController {
-		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User', 'Commission');
+		var $uses = array('Country', 'Epin', 'MlmType', 'Transaction', 'User', 'Commission', 'Request');
 		var $components = array('RequestHandler', 'Email');
 
 		public function beforeFilter() {
@@ -244,6 +244,53 @@
 			$epins = $this->paginate('Epin');
 			$this->set(compact('epins'));
 			$this->layout = 'ajax';
+		}
+
+		public function epin_requests() {
+			$this->set('title', 'Admin | Epin Requests');
+			$this->set('main_page', 'epins');
+		}
+
+		public function ajax_epin_requests() {
+			$allowed = array('sort', 'direction', 'page');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			foreach ($params as $key => $value)
+				if($value == null)
+					unset($params[$key]);
+
+			$options = array(
+				'limit' => 10,
+				'conditions' => array('purpose' => 'buy_pins'),
+				'order' => array('Request.date')
+			);
+			$this->paginate = array_merge($options, $params);
+			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+			$requests = $this->paginate('Request');
+			$this->set(compact('requests'));
+			$this->layout = 'ajax';
+		}
+
+		public function ajax_approve_epin_request() {
+			$allowed = array('id', 'count', 'amount', 'user_id');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			$price = $params['amount'] / $params['count'];
+
+			$this->Epin->recursive = 0;
+			if($this->Epin->find('count', array('conditions' => array('price' => $price, 'purpose' => 'membership', 'status' => 'available'))) >= $params['count']) {
+				$epins = $this->Epin->find('all', array('conditions' => array('price' => $price, 'purpose' => 'membership', 'status' => 'available'), 'limit' => $params['count']));
+				foreach($epins as $epin) {
+					$this->Epin->save(array('id' => $epin['Epin']['id'], 'owner_id' => $params['user_id'], 'status' => 'not available'));
+				}
+				$this->Transaction->create();
+				$this->Transaction->save(array('date' => date('Y-m-d h:i:s'), 'type' => 'buy_epins', 'user_id' => $params['user_id'], 'amount' => $params['amount']));
+				$this->Request->delete($params['id']);
+				$this->set('data', array('success' => true));
+			}
+			else
+				$this->set('data', array('success' => false));
+
+			$this->layout = 'ajax';
+			$this->render('/Elements/serialize_json');
 		}
 
 		public function plans() {

@@ -3,7 +3,8 @@
 	$current_page = isset($current_page) ? $current_page : null;
 	$pages = array(
 		array('icon' => 'pencil', 'action' => 'create_epins', 'page' => 'Create New Pins'),
-		array('icon' => 'book', 'action' => 'track_epins', 'page' => 'Tracking EPins')
+		array('icon' => 'book', 'action' => 'track_epins', 'page' => 'Tracking EPins'),
+		array('icon' => 'shopping-cart', 'action' => 'epin_requests', 'page' => 'EPin Requests')
 	);
 ?>
 <div class="sub-page-navbar">
