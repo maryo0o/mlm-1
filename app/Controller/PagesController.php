@@ -70,4 +70,78 @@ class PagesController extends AppController {
 		$this->Session->setFlash('Thank you for making a request. Please check your email for the payment details.', 'success');
 		$this->redirect('/buy_pins');
 	}
+
+	public function account() {
+		if(!$this->Auth->User()) {
+			$this->Session->setFlash('Please login first.', 'error');
+			$this->redirect('/login');
+		}
+	}
+
+	public function ajax_get_epins() {
+		$allowed = array('sort', 'direction', 'page');
+		$params = $this->uniform_params($this->request->data, $allowed);
+		foreach ($params as $key => $value)
+			if($value == null)
+				unset($params[$key]);
+
+		$options = array(
+			'limit' => 10,
+			'conditions' => array('Epin.owner_id' => $this->Auth->User('id')),
+			'order' => array('Epin.generation_date', 'Epin.status')
+		);
+		$this->paginate = array_merge($options, $params);
+		$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+		$epins = $this->paginate('Epin');
+		$this->set(compact('epins'));
+		$this->layout = 'ajax';
+	}
+
+	private function network() {
+		if(!$this->Auth->User()) {
+			$this->Session->setFlash('Please login first.', 'error');
+			$this->redirect('/login');
+		}
+		else {
+			$request = $this->Request->find('first', array('conditions' => array('purpose' => 'join_network', 'user_id' => $this->Auth->User('id'))));
+			$this->set(compact('request'));
+		}
+	}
+
+	public function ajax_join_network() {
+		$allowed = array('pin');
+		$params = $this->uniform_params($this->request->data, $allowed);
+		$params['purpose'] = 'join_network';
+		$params['user_id'] = $this->Auth->User('id');
+		$params['date'] = date('Y-m-d h:i:s');
+		$this->Epin->recursive = 0;
+		$epin = $this->Epin->find('first', array('conditions' => array('pin' => $params['pin'])));
+		if($epin) {
+			var_dump($epin);
+			if($epin['Epin']['purpose'] != 'membership')
+				$this->Session->setFlash('The ePin you entered is not used for joining the network.', 'error');
+			elseif ($epin['Epin']['user_id'] != 0)
+				$this->Session->setFlash('The ePin you entered is already used.', 'error');
+			else {
+				$this->Request->create();
+				$params['count'] = $epin['Epin']['id'];
+				unset($params['pin']);
+				$this->Request->save($params);
+				$this->Session->setFlash('Request to join network is successfull.', 'success');
+			}
+			$this->redirect('/network');
+		}
+		else {
+			$this->Session->setFlash('The ePin you entered is invalid.', 'error');
+			$this->redirect('/network');
+		}
+	}
+
+	public function ajax_cancel_join_network() {
+		$allowed = array('id');
+		$params = $this->uniform_params($this->request->data, $allowed);
+		$this->Request->delete($params['id']);
+		$this->Session->setFlash('Request to join network is successfully cancelled.', 'success');
+		$this->redirect('/network');
+	}
 }

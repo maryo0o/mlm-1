@@ -1,12 +1,11 @@
 <?php
 	$pages = array(
-		array('title' => 'My Account', 'link' => 'my_account'),
+		array('title' => 'My Account', 'link' => 'account'),
 		array('title' => 'Buy Pins', 'link' => 'buy_pins'),
 		array('title' => 'Products', 'link' => 'products'),
 		array('title' => 'View Orders', 'link' => 'view_orders'),
-		array('title' => 'My Network', 'link' => 'my_network'),
-		array('title' => 'My Transactions', 'link' => 'my_transaction'),
-		array('title' => 'My Profile', 'link' => 'my_profile')
+		array('title' => 'My Network', 'link' => 'network'),
+		array('title' => 'My Transactions', 'link' => 'transaction')
 	);
 ?>
 <ul class="nav nav-links">
