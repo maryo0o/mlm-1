@@ -134,6 +134,8 @@
 			);
 			$this->paginate = array_merge($options, $params);
 			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+			$this->User->Child->virtualFields['name'] = 'CONCAT(Child.first_name, " ", Child.last_name)';
+			$this->User->Sponsor->virtualFields['name'] = 'CONCAT(Sponsor.first_name, " ", Sponsor.last_name)';
 			$active_users = $this->paginate('User');
 			$this->set(compact('active_users'));
 			$this->layout = 'ajax';
@@ -176,9 +178,58 @@
 			);
 			$this->paginate = array_merge($options, $params);
 			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+			$this->User->Child->virtualFields['name'] = 'CONCAT(Child.first_name, " ", Child.last_name)';
+			$this->User->Sponsor->virtualFields['name'] = 'CONCAT(Sponsor.first_name, " ", Sponsor.last_name)';
 			$inactive_users = $this->paginate('User');
 			$this->set(compact('inactive_users'));
 			$this->layout = 'ajax';
+		}
+
+		public function membership_requests() {
+			$this->set('title', 'Admin | Membership Requests');
+			$this->set('main_page', 'users');
+		}
+
+		public function ajax_get_membership_requests() {
+			$allowed = array('sort', 'direction', 'page');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			foreach ($params as $key => $value)
+				if($value == null)
+					unset($params[$key]);
+
+			$options = array(
+				'limit' => 10,
+				'order' => array('Request.date')
+			);
+			$this->paginate = array_merge($options, $params);
+			$this->set('page', (isset($params['page']) ? $params['page'] : 1));
+			$requests = $this->paginate('Request');
+			$this->set(compact('requests'));
+			$this->layout = 'ajax';
+		}
+
+		public function ajax_approve_membership_request() {
+			$allowed = array('id');
+			$params = $this->uniform_params($this->request->data, $allowed);
+
+			$this->Request->recursive = -1;
+			$request = $this->Request->findById($params['id']);
+			$this->MlmType->recursive = -1;
+			$membership_mlm_type = $this->MlmType->find('first', array('conditions' => array('MlmType.purpose' => 'membership', 'MlmType.active' => true)));
+
+			$this->Request->delete($params['id']);
+			$this->set('data', array('success' => true));
+			$this->layout = 'ajax';
+			$this->render('/Elements/serialize_json');
+		}
+
+		public function ajax_deny_membership_request() {
+			$allowed = array('id');
+			$params = $this->uniform_params($this->request->data, $allowed);
+			$this->Request->delete($params['id']);
+			$this->set('data', array('success' => true));
+			$this->layout = 'ajax';
+			$this->render('/Elements/serialize_json');
 		}
 
 		public function epins() {

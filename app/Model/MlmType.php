@@ -3,7 +3,7 @@
 
 	class MlmType extends AppModel {
 		public $hasMany = array(
-			'MemebershipMlmTypeUser' => array(
+			'MembershipMlmTypeUser' => array(
 				'className' => 'User',
 				'foreignKey' => 'membership_mlm_type',
 				'condition' => array('MlmType.purpose' => 'membership')

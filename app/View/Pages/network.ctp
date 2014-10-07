@@ -26,7 +26,9 @@
 	<div class="col-md-9">
 		<h4>My Network</h4>
 		<?php if($auth['activated']): ?>
-			<div id="epins-container"></div>
+			<div id="epins-container">
+				<?php echo json_encode($users); ?>
+			</div>
 		<?php else: ?>
 			<?php if($request): ?>
 				<p>Request to join the network is made. Please wait for the admin to approve your request.</p>
@@ -40,7 +42,8 @@
 					<fieldset>
 						<?php
 							$inputs = array(
-								'pin' => array('label-class' => '', 'name' => 'EPin Code', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required'))
+								'pin' => array('label-class' => '', 'name' => 'EPin Code', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required')),
+								'username' => array('label-class' => '', 'name' => 'Sponsor', 'input-type' => 'text', 'attributes' => array('data-validate' => 'required'))
 							);
 							echo $this->element('inline_form', array('inputs' => $inputs, 'params' => (isset($params) ? $params : array()), 'errors' => (isset($errors) ? $errors : array())));
 						?>

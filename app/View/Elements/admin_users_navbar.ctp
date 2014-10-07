@@ -5,7 +5,8 @@
 		array('icon' => 'pencil', 'action' => 'create_user', 'page' => 'Create User'),
 		array('icon' => 'magic', 'action' => 'active_users', 'page' => 'Active Users'),
 		array('icon' => 'lock', 'action' => 'suspend_users', 'page' => 'Suspend Users'),
-		array('icon' => 'warning', 'action' => 'inactive_users', 'page' => 'Inactive Users')
+		array('icon' => 'warning', 'action' => 'inactive_users', 'page' => 'Inactive Users'),
+		array('icon' => 'mail-reply', 'action' => 'membership_requests', 'page' => 'Membership Requests')
 	);
 ?>
 <div class="sub-page-navbar">

@@ -11,7 +11,7 @@
 				'className' => 'User',
 				'foreignKey' => 'sponsor_id'
 			),
-			'MemebershipMlmType' => array(
+			'MembershipMlmType' => array(
 				'className' => 'MlmType',
 				'foreignKey' => 'membership_mlm_type',
 				'condition' => array('MlmType.purpose' => 'membership')
@@ -24,7 +24,7 @@
 		);
 
 		public $hasMany = array(
-			'User' => array(
+			'Child' => array(
 				'className' => 'User',
 				'foreignKey' => 'sponsor_id'
 			),
@@ -32,7 +32,11 @@
 				'className' => 'Transaction',
 				'foreignKey' => 'user_id'
 			),
-			'Epin' => array(
+			'OwnedEpin' => array(
+				'className' => 'Epin',
+				'foreignKey' => 'owner_id'
+			),
+			'UsedEpin' => array(
 				'className' => 'Epin',
 				'foreignKey' => 'user_id'
 			),
